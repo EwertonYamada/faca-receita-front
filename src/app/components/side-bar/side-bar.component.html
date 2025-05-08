@@ -1,0 +1,17 @@
+<div class="side-bar">
+  <div class="side-bar-content">
+    <ul class="side-bar-list">
+      @for (item of modules; track $index) {
+      <div class="side-bar-item" 
+           [class.active]="selectedItem === item" 
+           (click)="selectItem(item)">
+        <mat-icon class="side-bar-icon">{{ item.icon }}</mat-icon>
+        <span>{{ item.label }}</span>
+      </div>
+      }
+    </ul>
+  </div>
+  <div class="row">
+    <div class="col-md-5"></div>
+  </div>
+</div>

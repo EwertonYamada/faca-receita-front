@@ -1,0 +1,53 @@
+<div class="register-recipe">
+  <div class="row">
+    <div class="input-area col-md-4">
+      <label>Receita</label>
+      <input type="text" placeholder="Nome da receita" />
+    </div>
+    <div class="input-area col-md-4">
+      <label>Rendimento</label>
+      <input type="text" placeholder="Rendimento da receita" />
+    </div>
+  </div>
+  <form [formGroup]="ingredientForm">
+    <div class="row">
+      <div class="input-area col-md-4">
+        <label>Ingrediente</label>
+        <input type="text" formControlName="ingredient" placeholder="Ingrediente" />
+      </div>
+      <div class="select-area col-md-4">
+        <label>Unidade medida</label>
+        <select formControlName="measurementUnit">
+          <option value="gramas">Gramas</option>
+          <option value="litros">Litros</option>
+          <option value="unidades">Unidades</option>
+        </select>
+      </div>
+      <div class="input-area col-md-2">
+        <label>Quantidade</label>
+        <input type="text" formControlName="quantity" placeholder="Quantidade" />
+      </div>
+      <div class="button-area col-md-1">
+        <mat-icon (click)="addIngredient()">add_box</mat-icon>
+      </div>
+    </div>
+  </form>
+  <div class="row table-area">
+    <mat-table [dataSource]="ingredientList" class="mat-elevation-z8">
+      <ng-container matColumnDef="ingredient">
+        <mat-header-cell *matHeaderCellDef>Ingrediente</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.ingredient}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="quantity">
+        <mat-header-cell *matHeaderCellDef>Quantidade</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.quantity}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="measurementUnit">
+        <mat-header-cell *matHeaderCellDef>Unidade</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.measurementUnit}}</mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+</div>

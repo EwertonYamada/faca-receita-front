@@ -1,0 +1,71 @@
+@import '../../../styles.scss';
+
+.top-bar {
+  height: 7vh;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: $tertiary-color;
+
+  .top-bar-content {
+    display: flex;
+    align-items: center;
+  }
+
+  .top-bar-content-left {
+    display: flex;
+
+    .faca {
+      font-size: 20px;
+      font-weight: 300;
+      color: $secondary-color;
+    }
+
+    .receita {
+      font-size: 20px;
+      font-weight: bold;
+      color: $secondary-color;
+    }
+  }
+
+  .top-bar-content-center {
+    display: flex;
+    justify-content: center;
+
+    .center-elements {
+      display: flex;
+      align-items: center;
+
+      .search-icon {
+        font-size: 25px !important;
+        font-weight: bold;
+        color: $secondary-color;
+        margin-right: 10px;
+        font-size: 20px;
+        color: $secondary-color;
+        margin-right: 10px;
+      }
+
+      .input-search {
+        height: 26px;
+        background-color: $tertiary-color;
+        border-radius: 12px;
+        border: 1px solid $secondary-color;
+      }
+    }
+  }
+
+  .top-bar-content-right {
+    display: flex;
+    align-items: center;
+    justify-self: end;
+    color: $secondary-color;
+
+    :hover {
+      cursor: pointer;
+      color: $complementary-color3;
+    }
+  }
+}

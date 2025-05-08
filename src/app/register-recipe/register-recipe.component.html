@@ -46,6 +46,13 @@
         <mat-header-cell *matHeaderCellDef>Unidade</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.measurementUnit}}</mat-cell>
       </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <mat-icon class="mat-icon-button" (click)="editIngredient(element)">edit</mat-icon>
+            <mat-icon class="mat-icon-button" (click)="removeIngredient(element)">delete</mat-icon>
+        </mat-cell>
+      </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>

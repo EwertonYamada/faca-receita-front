@@ -1,0 +1,32 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="logo">
+      <h5 class="faca">FAÇA</h5>
+      <h5 class="receita">RECEITA</h5>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+
+      <div class="form-group">
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" formControlName="email"/>
+        <!-- <div *NgIf="loginForm.controls.email.invalid && loginForm.controls.email.touched" class="error-message">
+          O e-mail é inválido ou não foi preenchido.
+        </div> -->
+      </div>
+
+      <div class="form-group">
+        <label for="password">Senha:</label>
+        <input type="password" id="password" formControlName="password"/>
+        <!-- <div *NgIf="loginForm.controls.password.invalid && loginForm.controls.password.touched" class="error-message">
+          A senha é obrigatória e deve ter pelo menos 6 caracteres.
+        </div> -->
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="btn-primary" (click)="onLogin()">LOGIN</button>
+        <button type="button" class="btn-secondary" (click)="onCancel()">CANCELAR</button>
+      </div>
+    </form>
+  </div>
+</div>

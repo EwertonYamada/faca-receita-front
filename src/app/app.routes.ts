@@ -3,6 +3,7 @@ import { LoginComponent } from './login/login.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { RegisterRecipeComponent } from './register-recipe/register-recipe.component';
 import { LayoutComponent } from './layout/layout.component';
+import { SimulateRecipeComponent } from './simulate-recipe/simulate-recipe.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent },
@@ -12,6 +13,7 @@ export const routes: Routes = [
       children: [
         { path: 'homepage', component: HomepageComponent },
         { path: 'new-recipe', component: RegisterRecipeComponent },
+        { path: 'simulate-recipe', component: SimulateRecipeComponent },
       ]
     },
     { path: '**', redirectTo: '/homepage' }

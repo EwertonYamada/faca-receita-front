@@ -3,11 +3,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Ingredient } from './models/ingredient.model';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FinishButtonComponent } from '../components/finish-button/finish-button.component';
 
 @Component({
   selector: 'app-register-recipe',
   standalone: true,
-  imports: [MatIconModule, MatTableModule, ReactiveFormsModule],
+  imports: [
+    MatIconModule,
+    MatTableModule,
+    ReactiveFormsModule,
+    FinishButtonComponent,
+  ],
   templateUrl: './register-recipe.component.html',
   styleUrl: './register-recipe.component.scss'
 })
@@ -40,7 +46,6 @@ export class RegisterRecipeComponent {
     } else {
       list.push(formValue)
     }
-
     this.ingredientList.data = list
     this.ingredientForm.reset()
   }
@@ -54,7 +59,15 @@ export class RegisterRecipeComponent {
     });
   }
   
-  removeIngredient(element: any) {
+  public removeIngredient(element: any) {
     this.ingredientList.data = this.ingredientList.data.filter(item => item !== element);
-  } 
+  }
+
+  public finish(): void {
+    console.log(12345);
+  }
+
+  public cancel(): void {
+    console.log(5678);
+  }
 }

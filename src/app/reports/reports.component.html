@@ -1,0 +1,23 @@
+<div class="reports">
+  <div class="row">
+    @for (report of reports; track index; let index = $index) {
+      <div class="reports-card" 
+           (mouseenter)="hoveredIndex = index" 
+           (mouseleave)="hoveredIndex = null">
+        <div class="align-card-itens" *ngIf="hoveredIndex !== index" >
+          <mat-icon class="icon-card">{{ report.icon }}</mat-icon>
+          <span>{{ report.title }}</span>
+        </div>
+        <div class="sublist-container" *ngIf="hoveredIndex === index">
+          <ul  style="list-style: none;">
+            @for (subReport of report.subReports; track subIndex; let subIndex = $index) {
+              <li class="sublist-item">
+                <span class="sublist-label">{{ subReport.title }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="recipe-list">
+  <form [formGroup]="searchForm">
+    <div class="row">
+      <div class="input-area col-md-4">
+        <label>Receita</label>
+        <input type="text" formControlName="recipeName" placeholder="Busque uma receita..." />
+      </div>
+      <div class="input-area col-md-4">
+        <label>Período</label>
+        <div style="display: flex;">
+
+          <div class="input-area">
+
+            <input class="align-input" type="date" formControlName="recipeDateStart" placeholder="Inicial" />
+          </div>
+          <div class="input-area">
+
+            <input class="align-input" type="date" formControlName="recipeDateEnd" placeholder="Final" />
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-1 button-area">
+        <mat-icon (click)="newRecipe()">add_box</mat-icon>
+      </div>
+    </div>
+  </form>
+  <div class="row table-area">
+    <mat-table [dataSource]="recipeList" class="mat-elevation-z8">
+      <ng-container matColumnDef="recipeName">
+        <mat-header-cell *matHeaderCellDef>Receita</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.recipeName}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef>Categoria</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.category}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <mat-icon class="mat-icon-button" (click)="editRecipe(element)">edit</mat-icon>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+@import '../../styles.scss';
+
+.reports {
+  .reports-card {
+    width: 200px;
+    height: 200px;
+    margin: 5px;
+    background-color: $complementary-color;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+
+    .align-card-itens {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &:hover {
+      background-color: $complementary-color;
+      cursor: pointer;
+    }
+
+    .icon-card {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 80%;
+      font-size: 130px;
+      color: $secondary-color;
+    }
+
+    span {
+      font-size: 18px;
+      color: $secondary-color;
+      text-align: center;
+    }
+  }
+
+  .sublist-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: $secondary-color;
+    background-color: $complementary-color;
+
+    ul {
+      padding: 0px;
+      width: 100%;
+    }
+
+    .sublist-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 50px;
+      font-size: 10px !important;
+      color: $secondary-color;
+      border-bottom: solid 1px $secondary-color;
+
+      &:hover {
+        background-color: $complementary-color2;
+        cursor: pointer;
+        color: $secondary-color;
+      }
+
+      span {
+        width: 100%;
+        font-size: 12px;
+        font-weight: bolder;
+        text-transform: uppercase;
+      }
+    }
+  }
+}

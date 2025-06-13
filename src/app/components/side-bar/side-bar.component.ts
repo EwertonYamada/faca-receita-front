@@ -25,8 +25,6 @@ export class SideBarComponent {
   }
 
   public goToModule(route: string): void {
-    console.log(route);
-    
     this.router.navigate([`/${route}`]);
   }
     

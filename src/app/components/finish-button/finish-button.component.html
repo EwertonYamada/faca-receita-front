@@ -1,7 +1,8 @@
 <div class="finish-button">
   <button type="button" 
           class="btn btn-primary" 
-          (click)="confirm()">
+          (click)="confirm()"
+          [disabled]="disabledConfirmButton">
     {{ confirmLabel }}
   </button>
   <button type="button" 

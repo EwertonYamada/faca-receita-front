@@ -1,5 +1,13 @@
 @import '../../styles.scss';
 
 .register-recipe {
-  
+  .recipe-form {
+    width: 100%;
+    flex-wrap: inherit;
+  }
+
+  .ingredient-form {
+    width: 100%;
+    flex-wrap: inherit;
+  }
 }

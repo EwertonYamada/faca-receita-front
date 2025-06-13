@@ -1,22 +1,38 @@
 <div class="register-recipe">
-  <div class="row">
-    <div class="input-area col-md-4">
-      <label>Receita</label>
-      <input type="text" placeholder="Nome da receita" />
-    </div>
-    <div class="select-area col-md-4">
-      <label>Rendimento</label>
-      <select>
-        <option value="gramas">Gramas</option>
-      </select>
-    </div>
-    <div class="input-area col-md-4">
-      <label>Rendimento</label>
-      <input type="text" placeholder="Rendimento da receita" />
-    </div>
-  </div>
-  <form [formGroup]="ingredientForm">
+  <form [formGroup]="recipeForm">
     <div class="row">
+      <div class="input-area col-md-4">
+        <label>Receita</label>
+        <input type="text" formControlName="name" placeholder="Nome da receita" />
+      </div>
+      <div class="input-area col-md-8">
+        <label>Descrição</label>
+        <input type="text" formControlName="description" placeholder="Descrição da receita" />
+      </div>
+      <div class="select-area col-md-4">
+        <label>Tipo do rendimento</label>
+        <select formControlName="yieldType" placeholder="Tipo de rendimento">
+          <option value="GRAMAS">Gramas</option>
+          <option value="litros">Litros</option>
+          <option value="unidades">Unidades</option>
+        </select>
+      </div>
+      <div class="input-area col-md-4">
+        <label>Rendimento</label>
+        <input type="text" formControlName="recipeYield" placeholder="Rendimento da receita" />
+      </div>
+      <div class="input-area col-md-4">
+        <label>Tempo de preparo</label>
+        <input type="text" formControlName="preparationTime" placeholder="Tempo de preparo" />
+      </div>
+
+      <div class="input-area col-md-12">
+        <label>Modo de preparo</label>
+        <input type="text" formControlName="preparationInstructions" placeholder="Modo de preparo" />
+      </div>
+    </div>
+    <br>
+    <div class="row" [formGroup]="ingredientForm">
       <div class="input-area col-md-4">
         <label>Ingrediente</label>
         <input type="text" formControlName="ingredient" placeholder="Ingrediente" />
@@ -24,17 +40,19 @@
       <div class="select-area col-md-4">
         <label>Unidade medida</label>
         <select formControlName="measurementUnit">
-          <option value="gramas">Gramas</option>
-          <option value="litros">Litros</option>
-          <option value="unidades">Unidades</option>
+          <option value="GRAMAS" label="Gramas">Gramas</option>
+          <option value="LITRO">Litros</option>
+          <option value="UNIDADE">Unidades</option>
         </select>
       </div>
       <div class="input-area col-md-2">
         <label>Quantidade</label>
-        <input type="text" formControlName="quantity" placeholder="Quantidade" />
+        <input type="text" formControlName="quantity" placeholder="Quantidade"/>
       </div>
       <div class="button-area col-md-1">
-        <mat-icon (click)="addIngredient()">add_box</mat-icon>
+        <button mat-icon-button color="primary" (click)="addIngredient()" [disabled]="ingredientForm.invalid">
+          <mat-icon>add_box</mat-icon>
+        </button>
       </div>
     </div>
   </form>
@@ -65,6 +83,7 @@
   </div>
   <app-finish-button 
       confirmLabel="SALVAR"
+      [disabledConfirmButton]="!recipeForm.valid || ingredientList.data.length === 0"
       (onConfirm)="finish()"
       (onCancel)="cancel()">
   </app-finish-button>

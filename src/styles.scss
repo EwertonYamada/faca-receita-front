@@ -78,6 +78,40 @@ body {
   }
 }
 
+.input-text-area {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  margin: 0px;
+
+  label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    color: $text-dark-color;
+    font-weight: 500;
+    margin-bottom: -5px;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 64px;
+    padding: 0px 8px 0px 8px;
+    border-radius: 4px;
+    border: 2px solid $secondary-color;
+    background-color: $complementary-color4;
+    font-size: 16px;
+    margin-right: 8px;
+    line-height: 1.2;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 5px $primary-color;
+    }
+  }
+}
+
 .select-area {
   display: flex;
   flex-direction: column;
@@ -141,29 +175,64 @@ body {
 
 .table-area {
   width: 100%;
-  margin: 20px 8px 5px 8px;
-  padding: 0px;
+  margin: 20px 0 5px 0;
+  padding: 0;
 
   mat-table {
     width: 100%;
-    max-height: 190px;
+    max-height: 200px;
     border-collapse: collapse;
     border-radius: 4px;
     padding: 0px;
     overflow-y: auto;
+    table-layout: fixed;
+    display: table;
+    --mat-table-row-item-outline-width: 0px;
+  }
 
-    mat-header-row,
-    mat-row {
-      min-height: 25px;
-      background-color: $complementary-color4;
-    }
+  .mat-header-row,
+  .mat-row {
+    height: 22px !important;
+    line-height: 22px !important;
+    display: table-row;
+    justify-content: space-between;
+    border: none !important;
+  }
 
-    mat-header-row {
-      background-color: $secondary-color;
-      color: $tertiary-color;
-      position: sticky;
-      top: 0;
-      z-index: 1;
+  .mat-header-row {
+    background-color: $secondary-color;
+    color: $tertiary-color;
+  }
+
+  .mat-row:nth-child(even) {
+    background-color: $complementary-color4;
+  }
+
+  .mat-row:nth-child(odd) {
+    background-color: lighten($complementary-color4, 7%);
+  }
+
+  .mat-cell,
+  .mat-header-cell {
+    padding: 0 4px !important;
+    font-size: 12px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-align: left;
+  }
+
+  .mat-column-actions {
+    width: 150px;
+    text-align: center;
+  }
+
+  .list-action-button {
+    color: $secondary-color;
+    font-size: 18px;
+
+    &:hover {
+      color: $complementary-color3;
+      cursor: pointer;
     }
   }
 }

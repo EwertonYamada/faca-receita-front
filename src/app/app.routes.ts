@@ -14,7 +14,8 @@ export const routes: Routes = [
       component: LayoutComponent,
       children: [
         { path: 'homepage', component: HomepageComponent },
-        { path: 'new-recipe', component: RegisterRecipeComponent },
+        { path: 'recipe', component: RegisterRecipeComponent },
+        { path: 'recipe/:id', component: RegisterRecipeComponent },
         { path: 'recipes', component: RecipeListComponent },
         { path: 'simulate-recipe', component: SimulateRecipeComponent },
         { path: 'reports', component: ReportsComponent },

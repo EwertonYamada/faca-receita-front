@@ -1,6 +1,6 @@
 export interface Ingredient {
-  id: number | null
+  id?: number | null
   ingredient: string
-  quantity: number
+  quantity: string
   measurementUnit: string
 }

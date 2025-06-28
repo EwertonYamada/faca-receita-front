@@ -1,22 +1,27 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { RecipeService } from '../register-recipe/service/recipe-service';
 import { searchRecipeDTO } from './interfaces/search-recipe-dto';
+import { RecipeListResponseDTO } from './interfaces/recipe-list-response-dto';
+import { MatButtonModule } from '@angular/material/button';
+import { OptionList } from '../helpers/option-list/option-list';
 
 @Component({
   selector: 'app-recipe-list',
   standalone: true,
-  imports: [ReactiveFormsModule, MatTableModule, MatIcon],
+  imports: [ReactiveFormsModule, MatTableModule, MatIcon, MatButtonModule],
   templateUrl: './recipe-list.component.html',
   styleUrl: './recipe-list.component.scss'
 })
 export class RecipeListComponent {
   public searchForm!: FormGroup<any>
-  public recipeList = []
-  public displayedColumns: string[] = ['recipeName', 'category', 'actions']
+  public recipeList = new MatTableDataSource<RecipeListResponseDTO>()
+  public displayedColumns: string[] = ['name', 'category', 'recipeYield', 'preparationTime', 'actions']
+  public recipeCategoryTranslateMap: Map<string, string> = new Map<string, string>([])
+  public measureUnitTranslateMap: Map<string, string> = new Map<string, string>([])
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,15 +31,28 @@ export class RecipeListComponent {
 
   ngOnInit(): void {
     this.initializeSearchForm()
+    this.initializeRecipeCategoryTranslateMap()
+    this.initializeMeasureUnitOptions()
     this.searchRecipes()
   }
 
-  private searchRecipes(): void {
-    this.recipeService.searchRecipes(this.buildSearchDTO()).subscribe((recipes: any[]) => {
-      console.log(recipes);
-    }, error => {
-      console.error('Error fetching recipes:', error);
-    })
+  public searchRecipes(): void {
+    this.recipeService.searchRecipes(this.buildSearchDTO()).subscribe(
+      (recipes: RecipeListResponseDTO[]) => {
+        this.recipeList.data = recipes
+      },
+      error => {
+        console.error('Erro ao buscar receitas:', error)
+      }
+    )
+  }
+
+  private initializeRecipeCategoryTranslateMap(): void {
+    this.recipeCategoryTranslateMap = OptionList.getProductCategoryMapLabel()
+  }
+
+  private initializeMeasureUnitOptions() {
+    this.measureUnitTranslateMap = OptionList.getMeasureUnitMapLabel()
   }
 
   private buildSearchDTO(): searchRecipeDTO {
@@ -61,10 +79,18 @@ export class RecipeListComponent {
   }
 
   public newRecipe(): void {
-    this.router.navigate(['/new-recipe'])
+    this.router.navigate(['/recipe'])
   }
 
   public editRecipe(recipe: any) {
-    console.log('Edit recipe', recipe)
+    this.router.navigate(['/recipe', recipe.id])
+  }
+
+  public getRecipeCategoryLabel(category: string): string {
+    return this.recipeCategoryTranslateMap.get(category) || 'Não definido'
+  }
+
+  public getMeasureUnitLabel(key: string): string {
+    return this.measureUnitTranslateMap.get(key) || 'Unknown Unit'
   }
 }

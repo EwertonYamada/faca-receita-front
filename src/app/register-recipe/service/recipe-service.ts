@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../helpers/environment/environment';
 import { Recipe } from '../models/recipe.model';
 import { searchRecipeDTO } from '../../recipe-list/interfaces/search-recipe-dto';
+import { RecipeListResponseDTO } from '../../recipe-list/interfaces/recipe-list-response-dto';
 
 @Injectable({ providedIn: 'root' })
 export class RecipeService {
@@ -15,7 +16,11 @@ export class RecipeService {
     return this.http.post(this.apiUrl, recipe);
   }
 
-  public searchRecipes(searchDTO: searchRecipeDTO): Observable<any> {
-    return this.http.post(`${this.apiUrl}/search`, searchDTO);
+  public searchRecipes(searchDTO: searchRecipeDTO): Observable<RecipeListResponseDTO[]> {
+    return this.http.post<RecipeListResponseDTO[]>(`${this.apiUrl}/search`, searchDTO);
+  }
+
+  public getRecipeById(id: number): Observable<Recipe> {
+    return this.http.get<Recipe>(`${this.apiUrl}/${id}`);
   }
 }

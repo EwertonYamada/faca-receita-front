@@ -3,10 +3,11 @@ import { Ingredient } from "./ingredient.model";
 export interface Recipe {
   id?: number | null;
   name: string;
-  description: string;
+  category: string;
   yieldType: string;
   recipeYield: string;
-  preparationInstructions: string;
-  preparationTime: string;
+  description: string;
   ingredients: Ingredient[];
+  preparationTime: string;
+  preparationInstructions: string;
 }

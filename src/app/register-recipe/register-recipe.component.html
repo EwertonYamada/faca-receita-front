@@ -10,11 +10,19 @@
         <input type="text" formControlName="description" placeholder="Descrição da receita" />
       </div>
       <div class="select-area col-md-4">
+        <label>Categoria</label>
+        <select formControlName="category" placeholder="Categoria">
+          <option *ngFor="let option of recipeCategoryOptions" [value]="option.key">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+      <div class="select-area col-md-4">
         <label>Tipo do rendimento</label>
         <select formControlName="yieldType" placeholder="Tipo de rendimento">
-          <option value="GRAMAS">Gramas</option>
-          <option value="litros">Litros</option>
-          <option value="unidades">Unidades</option>
+          <option *ngFor="let option of yieldTypeOptions" [value]="option.key">
+            {{ option.label }}
+          </option>
         </select>
       </div>
       <div class="input-area col-md-4">
@@ -22,16 +30,15 @@
         <input type="text" formControlName="recipeYield" placeholder="Rendimento da receita" />
       </div>
       <div class="input-area col-md-4">
-        <label>Tempo de preparo</label>
+        <label>Tempo de preparo (min.)</label>
         <input type="text" formControlName="preparationTime" placeholder="Tempo de preparo" />
       </div>
 
-      <div class="input-area col-md-12">
+      <div class="input-text-area col-md-12">
         <label>Modo de preparo</label>
-        <input type="text" formControlName="preparationInstructions" placeholder="Modo de preparo" />
+        <textarea formControlName="preparationInstructions" placeholder="Modo de preparo"></textarea>
       </div>
     </div>
-    <br>
     <div class="row" [formGroup]="ingredientForm">
       <div class="input-area col-md-4">
         <label>Ingrediente</label>
@@ -40,9 +47,9 @@
       <div class="select-area col-md-4">
         <label>Unidade medida</label>
         <select formControlName="measurementUnit">
-          <option value="GRAMAS" label="Gramas">Gramas</option>
-          <option value="LITRO">Litros</option>
-          <option value="UNIDADE">Unidades</option>
+          <option *ngFor="let option of yieldTypeOptions" [value]="option.key">
+            {{ option.label }}
+          </option>
         </select>
       </div>
       <div class="input-area col-md-2">
@@ -59,26 +66,26 @@
   <div class="row table-area">
     <mat-table [dataSource]="ingredientList" class="mat-elevation-z8">
       <ng-container matColumnDef="ingredient">
-        <mat-header-cell *matHeaderCellDef>Ingrediente</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.ingredient}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef>Ingrediente</th>
+        <td mat-cell *matCellDef="let element">{{element.ingredient}}</td>
       </ng-container>
       <ng-container matColumnDef="quantity">
-        <mat-header-cell *matHeaderCellDef>Quantidade</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.quantity}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef>Quantidade</th>
+        <td mat-cell *matCellDef="let element">{{element.quantity}}</td>
       </ng-container>
       <ng-container matColumnDef="measurementUnit">
-        <mat-header-cell *matHeaderCellDef>Unidade</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.measurementUnit}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef>Unidade</th>
+        <td mat-cell *matCellDef="let element">{{getMeasureUnitLabel(element.measurementUnit)}}</td>
       </ng-container>
       <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
-        <mat-cell *matCellDef="let element">
-            <mat-icon class="mat-icon-button" (click)="editIngredient(element)">edit</mat-icon>
-            <mat-icon class="mat-icon-button" (click)="removeIngredient(element)">delete</mat-icon>
-        </mat-cell>
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let element">
+            <mat-icon class="list-action-button" (click)="editIngredient(element)">edit</mat-icon>
+            <mat-icon class="list-action-button" (click)="removeIngredient(element)">delete</mat-icon>
+        </td>
       </ng-container>
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <tr class="mat-header-row" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr class="mat-row" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </mat-table>
   </div>
   <app-finish-button 

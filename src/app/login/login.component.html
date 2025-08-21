@@ -1,6 +1,7 @@
 <div class="login-container">
   <div class="login-card">
     <div class="logo">
+      <mat-icon class="cookie">cookie</mat-icon>
       <h5 class="faca">FAÇA</h5>
       <h5 class="receita">RECEITA</h5>
     </div>
@@ -21,12 +22,19 @@
         <!-- <div *ngIf="loginForm.controls.password.invalid && loginForm.controls.password.touched" class="error-message">
           A senha é obrigatória e deve ter pelo menos 6 caracteres.
         </div> -->
+        <div class="forgot-password">
+          <a>Esqueci minha senha</a>
+        </div>
       </div>
 
-      <div class="button-group">
+      <div>
         <button type="submit" class="btn-primary" (click)="onLogin()">LOGIN</button>
-        <button type="button" class="btn-secondary" (click)="onCancel()">CANCELAR</button>
       </div>
     </form>
+    <div class="row">
+      <div class="col-md-12 create-account">
+        <p class="register-text">Não possui uma conta? <a (click)="onRegister()">Cadastre-se</a></p>
+      </div>
+    </div>
   </div>
 </div>

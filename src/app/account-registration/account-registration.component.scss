@@ -1,0 +1,91 @@
+@import '../../styles.scss';
+
+.account-registration-container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: $background-color;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: $default-font;
+
+  .registration-form {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+  }
+
+  .registration-btn-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 15px;
+    
+    .registration-btn {
+      background-color: $secondary-color;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    .registration-btn:hover {
+      background-color: $complementary-color2;
+    }
+  }
+
+  .registration-title {
+    font-size: 22px;
+    color: $text-dark-color;
+    font-family: $default-font;
+    margin-bottom: 5px;
+  }
+
+  .registration-text {
+    font-size: 13px;
+    font-family: $default-font;
+    color: $text-dark-color;
+    margin-top: -5px;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .message-error {
+    font-size: 13px;
+    font-family: $default-font;
+    color: red;
+  }
+
+  .password-instructions {
+    margin-top: 4px;
+    margin-bottom: 0px;
+    
+    .pw-rules {
+      font-size: 13px;
+      font-family: $default-font;
+      margin: 0;
+      padding-left: 12px;
+      line-height: 1.1;
+
+      li {
+        margin: 0.25rem 0;
+        color: $text-dark-color;
+        list-style: "• ";
+
+        &.ok {
+          color: $secondary-color;
+          font-weight: 600;
+          list-style: "✓ ";
+        }
+      }
+    }
+  }
+}

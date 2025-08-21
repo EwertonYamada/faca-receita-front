@@ -10,4 +10,5 @@ export interface Recipe {
   ingredients: Ingredient[];
   preparationTime: string;
   preparationInstructions: string;
+  createdAt: Date;
 }

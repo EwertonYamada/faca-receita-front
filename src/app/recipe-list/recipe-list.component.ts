@@ -83,7 +83,7 @@ export class RecipeListComponent {
   }
 
   public editRecipe(recipe: any) {
-    this.router.navigate(['/recipe', recipe.id])
+    this.router.navigate(['/recipe/edit', recipe.id])
   }
 
   public getRecipeCategoryLabel(category: string): string {

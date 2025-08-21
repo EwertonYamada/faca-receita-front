@@ -1,0 +1,55 @@
+<div class="account-registration-container">
+  <div class="row col-md-12">
+    <span class="registration-title">Crie sua conta</span>
+    <p class="registration-text">Preencha os campos abaixo para criar uma conta. Ao finalizar o cadastro, você receberá um e-mail de confirmação.</p>
+  </div>
+
+  <form class="row registration-form" [formGroup]="form">
+    <div class="input-area col-md-8">
+      <label for="name">Nome completo *</label>
+      <input type="text" id="name" formControlName="name" required />
+    </div>
+    <div class="input-area col-md-4">
+      <label for="doc">CPF *</label>
+      <input type="text" id="doc" formControlName="doc" required />
+    </div>
+    <div class="input-area col-md-8">
+      <label for="email">E-mail *</label>
+      <input type="email" id="email" formControlName="email" required />
+    </div>
+    <div class="input-area col-md-4">
+      <label for="phone">Telefone *</label>
+      <input type="tel" id="phone" formControlName="phone" required />
+    </div>
+    <div class="input-area col-md-6">
+      <label for="password">Senha *</label>
+      <input type="password" id="password" formControlName="password" required />
+    </div>
+    <div class="input-area col-md-6">
+      <label for="passwordConfirmation">Confirmação de senha *</label>
+      <input type="password" id="passwordConfirmation" formControlName="passwordConfirmation" required />
+    </div>
+    <div class="password-instructions col-md-12">
+      <ul class="pw-rules">
+        <li [class.ok]="rules.upper">Pelo menos 1 letra maiúscula (A–Z).</li>
+        <li [class.ok]="rules.lower">Pelo menos 1 letra minúscula (a–z).</li>
+        <li [class.ok]="rules.number">Pelo menos 1 número (0–9).</li>
+        <li [class.ok]="rules.special">Pelo menos 1 caractere especial.</li>
+        <li [class.ok]="rules.length">Mínimo de 8 caracteres.</li>
+      </ul>
+    </div>
+    
+    <div class="row col-md-12 registration-btn-container">
+      <button type="submit" class="col-md-6 registration-btn" (click)="createAccount()">CADASTRAR</button>
+    </div>
+    <div class="col-md-12" style="display: flex; justify-content: center;" 
+          *ngIf="requestSent && form.hasError('emptyFields')">
+      <span class="message-error">Os campos marcados com asterisco (*) são obrigatórios.</span>
+    </div>
+    <div class="col-md-12" style="display: flex; justify-content: center;" 
+        *ngIf="requestSent && form.invalid && form.hasError('passwordMismatch')">
+      <span class="message-error">A senha e confirmação de senha não coincidem.</span>
+    </div>
+  </form>
+
+</div>

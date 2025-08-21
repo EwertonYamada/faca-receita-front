@@ -15,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(MatIconModule), 
     provideAnimationsAsync(),
     MatTableModule,
-    provideHttpClient()
+    provideHttpClient(),
+    provideAnimationsAsync()
   ]
 }

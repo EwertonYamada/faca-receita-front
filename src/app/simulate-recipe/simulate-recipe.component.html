@@ -1,45 +1,84 @@
 <div class="simulate-recipe">
-  <div class="row">
-    <div class="select-area col-md-4">
-      <label>Receita</label>
-      <select>
-        <option value="gramas">Gramas</option>
-      </select>
+  <form [formGroup]="recipeToSimulationForm">
+    <div class="row header-row">
+      <div class="select-area col-md-4">
+        <label>Receita</label>
+        <select formControlName="recipeId">
+          <option *ngFor="let recipe of recipeOptionList" [value]="recipe.id">{{ recipe.name }}</option>
+        </select>
+      </div>
+      <div class="input-area col-md-2">
+        <label>Quantidade</label>
+        <input type="text" placeholder="Quantidade" formControlName="quantity"/>
+      </div>
+      <div class="input-area col-md-2">
+        <label>Margem lucro (%)</label>
+        <input type="number" placeholder="Ex.: 50%" formControlName="profit"/>
+      </div>
+      <div class="col-md-1 button-area">
+        <button>
+          <mat-icon (click)="addRecipeToSimulation()">add_box</mat-icon>
+        </button>
+        <button>
+          <mat-icon (click)="removeRecipeToSimulation()">cancel</mat-icon>
+        </button>
+      </div>
     </div>
-    <div class="input-area col-md-2">
-      <label>Quantidade</label>
-      <input type="text" placeholder="Quantidade"/>
-    </div>
-  </div>
+  </form>
   <div class="row table-area">
     <mat-table [dataSource]="ingredientList" class="mat-elevation-z8">
+
       <ng-container matColumnDef="ingredient">
-        <mat-header-cell *matHeaderCellDef>Ingrediente</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.ingredient}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef>Ingrediente</th>
+        <td mat-cell *matCellDef="let element">{{ element.ingredient }}</td>
       </ng-container>
+
       <ng-container matColumnDef="quantity">
-        <mat-header-cell *matHeaderCellDef>Quantidade</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.quantity}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef>Quantidade</th>
+        <td mat-cell *matCellDef="let element">{{ element.quantity }}</td>
       </ng-container>
+
       <ng-container matColumnDef="measurementUnit">
-        <mat-header-cell *matHeaderCellDef>Unidade</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.measurementUnit}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef>Unid. Medida</th>
+        <td mat-cell *matCellDef="let element">{{ getMeasureUnitLabel(element.measurementUnit) }}</td>
       </ng-container>
+
       <ng-container matColumnDef="unitCost">
-        <mat-header-cell *matHeaderCellDef>Custo Unitário</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.unitCost}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef>Custo/receita</th>
+        <td mat-cell *matCellDef="let element">
+          <div class="table-input-area">
+            <input class="unit-cost-input" 
+                   matInput type="number" 
+                   [(ngModel)]="element.unitCost"
+                   (change)="calculeTotalItem(element)"/>
+          </div>
+        </td>
       </ng-container>
-      <ng-container matColumnDef="totalCost">
-        <mat-header-cell *matHeaderCellDef>Custo Total</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.totalCost}}</mat-cell>
-      </ng-container>
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+      <tr class="mat-header-row" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr class="mat-row" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </mat-table>
   </div>
-  <app-finish-button 
-      confirmLabel="SIMULAR"
-      (onConfirm)="generateSimulation()"
+  <div class="row summary-table">
+    <table>
+      <tr>
+        <td colspan="2"><strong>Custo estimado por receita</strong></td>
+        <td><strong>R$ {{ simulationResult.costPerRecipe | number: '1.2-2' }}</strong></td>
+      </tr>
+      <tr>
+        <td colspan="2"><strong>Custo total estimado</strong></td>
+        <td><strong>R$ {{ simulationResult.totalCost | number: '1.2-2' }}</strong></td>
+      </tr>
+      <tr>
+        <td colspan="2"><strong>Preço de venda sugerido por receita</strong></td>
+        <td><strong>R$ {{ simulationResult.saleValue | number: '1.2-2' }}</strong></td>
+      </tr>
+    </table>
+
+  </div>
+  <app-finish-button
+      confirmLabel="{{simulated ? 'SALVAR' : 'SIMULAR'}}"
+      (onConfirm)="execute()"
       (onCancel)="cancel()"
     >
   </app-finish-button>

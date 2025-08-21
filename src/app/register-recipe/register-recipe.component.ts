@@ -7,9 +7,7 @@ import { FinishButtonComponent } from '../components/finish-button/finish-button
 import { RecipeService } from './service/recipe-service';
 import { OptionList } from '../helpers/option-list/option-list';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { of, switchMap } from 'rxjs';
-
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-recipe',
@@ -29,6 +27,7 @@ export class RegisterRecipeComponent {
   private formBuilder = inject(FormBuilder)
   private recipeService = inject(RecipeService)
   private route = inject(ActivatedRoute)
+  private router = inject(Router)
 
   public ingredientList = new MatTableDataSource<Ingredient>()
   public recipeForm!: FormGroup<any>
@@ -39,7 +38,7 @@ export class RegisterRecipeComponent {
   public recipeCategoryOptions: OptionList[] = []
   private measureUnitTranslateMap: Map<string, string> = new Map()
 
-  
+
   get ingredients(): FormArray {
     return this.recipeForm.get('ingredients') as FormArray
   }
@@ -64,32 +63,21 @@ export class RegisterRecipeComponent {
     })
     this.initIngredientForm()
     const id = this.route.snapshot.paramMap.get('id')
-    if (!id) return 
-    
+    if (!id) return
     this.getRecipeToEdit(id)
   }
 
   private getRecipeToEdit(id: string) {
-    this.route.paramMap
-      .pipe(
-        switchMap(paramMap => {
-          const id = Number(paramMap.get('id'))
-          if (id) {
-            return this.recipeService.getRecipeById(id)
-          } else {
-            return of(null)
-          }
+    this.recipeService.getRecipeById(Number(id)).subscribe((recipe) => {
+      if (recipe) {
+        this.recipeForm.patchValue(recipe)
+        this.ingredients.clear();
+        (recipe.ingredients || []).forEach((ingredient: any) => {
+          this.ingredients.push(this.formBuilder.group(ingredient))
         })
-      )
-      .subscribe(recipe => {
-        if (recipe) {
-          this.recipeForm.patchValue(recipe)
-          this.ingredients.clear();
-          (recipe.ingredients || []).forEach((ingredient: any) => {
-            this.ingredients.push(this.formBuilder.group(ingredient))
-          })
-        }
-      })
+        this.ingredientList.data = recipe.ingredients || []
+      }
+    })
   }
 
   private initIngredientForm(): void {
@@ -98,7 +86,7 @@ export class RegisterRecipeComponent {
       ingredient: ['', Validators.required],
       quantity: [0, Validators.required],
       measurementUnit: ['', Validators.required]
-    });
+    })
   }
 
   private initializeMeasureUnitOptions() {
@@ -106,55 +94,60 @@ export class RegisterRecipeComponent {
     this.measureUnitTranslateMap = OptionList.getMeasureUnitMapLabel()
   }
 
-
   private initializeRecipeCategoryOptions() {
     this.recipeCategoryOptions = OptionList.getProductCategoryOptions()
   }
 
   public addIngredient(): void {
-    const newIngredient: Ingredient = this.ingredientForm.value
-    const list = [...this.ingredientList.data]
-
+    const newIngredient: Ingredient = this.ingredientForm.value;
+    const list = [...this.ingredientList.data];
     if (this.editingIndex !== null) {
-      list[this.editingIndex] = newIngredient
-      this.editingIndex = null
+      list[this.editingIndex] = newIngredient;
+      this.ingredientList.data = list;
+      this.ingredients.at(this.editingIndex).setValue(newIngredient);
+      this.editingIndex = null;
     } else {
-      list.push(newIngredient)
+      list.push(newIngredient);
+      this.ingredientList.data = list;
+      this.ingredients.push(this.formBuilder.group(newIngredient));
     }
-    this.ingredientList.data = list
-    this.ingredients.push(this.formBuilder.group(newIngredient))
-    this.initIngredientForm()
+    this.initIngredientForm();
   }
 
   public editIngredient(element: Ingredient): void {
     this.editingIndex = this.ingredientList.data.indexOf(element)
     this.ingredientForm.setValue({
+      id: element.id || null,
       ingredient: element.ingredient,
       quantity: element.quantity,
       measurementUnit: element.measurementUnit
     })
   }
 
-  public removeIngredient(element: any) {
-    this.ingredientList.data = this.ingredientList.data.filter(item => item !== element);
-    this.ingredients.removeAt(this.ingredientList.data.indexOf(element))
+  public removeIngredient(element: any): void {
+    const index = this.ingredientList.data.indexOf(element)
+    if (index > -1) {
+      this.ingredients.removeAt(index)
+      this.ingredientList.data.splice(index, 1)
+      this.ingredientList.data = [...this.ingredientList.data]
+    }
   }
 
   public finish(): void {
     this.recipeService.saveRecipe(this.recipeForm.value).subscribe({
       next: (response) => {
-        console.log('Receita salva com sucesso', response)
         this.recipeForm.reset()
         this.ingredientList.data = []
+        this.router.navigate(['/recipes'])
       },
       error: (error) => {
         console.error('Erro ao salvar receita', error)
       }
-    })  
+    })
   }
 
   public cancel(): void {
-    console.log(5678);
+    this.router.navigate(['/recipes'])
   }
 
   public getMeasureUnitLabel(key: string): string {

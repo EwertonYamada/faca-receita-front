@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { passwordComplexityValidator, passwordMatchValidator } from '../helpers/string-utils/string-utils'
+import { LoginService } from '../login/service/login-service';
+import { CreateAccountDto } from './model/create-account-dto';
 
 @Component({
   selector: 'app-account-registration',
@@ -30,17 +31,22 @@ export class AccountRegistrationComponent {
 
   constructor(
     private fb: FormBuilder,
+    private loginService: LoginService,
+    private dialogRef: MatDialogRef<AccountRegistrationComponent>
   ) {
-    this.form = this.fb.group({
-      name: ['', [Validators.required]],
-      doc: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      passwordConfirmation: ['', [Validators.required]],
-    },
-    { validators: [this.passwordMatchValidator, this.allFieldsFilled] }
-   )
+    this.form = this.fb.group(
+      {
+        name: ['', [Validators.required]],
+        doc: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
+        phone: ['', [Validators.required]],
+        password: ['', [Validators.required]],
+        passwordConfirmation: ['', [Validators.required]],
+      },
+      {
+        validators: [this.passwordMatchValidator, this.allFieldsFilled]
+      }
+    )
   }
 
   ngOnInit(): void {
@@ -65,17 +71,31 @@ export class AccountRegistrationComponent {
     return hasEmpty ? { emptyFields: true } : null;
   }
 
-  onChangePassword() {
-    
-  }
-
   createAccount() {
     this.requestSent = true;
     if (!this.form.valid) {
       return
-      
     }
-    // this.dialogRef.close(this.form.value);
+    const createAccountDTO: CreateAccountDto = {
+      name: this.form.value.name.trim(),
+      doc: this.form.value.doc.trim(),
+      email: this.form.value.email.trim(),
+      phone: this.form.value.phone.trim(),
+      password: this.form.value.password,
+      passwordConfirmation: this.form.value.passwordConfirmation
+    } 
+    this.loginService.createUser(createAccountDTO).subscribe({
+      next: () => {
+        this.requestSent = false;
+        this.invalidPassword = false;
+      },
+      error: (error) => {
+        console.error('Error creating account:', error);
+      },
+      complete: () => {
+        this.dialogRef.close(this.form.value);
+      },
+    })
   }
 
 

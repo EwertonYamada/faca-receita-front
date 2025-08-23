@@ -46,9 +46,10 @@ export class LoginComponent {
 
   public onRegister(): void {
     this.dialog.open(AccountRegistrationComponent, {
-      width: '90%',
-      height: '90%',
+      minWidth: '90%',
+      minHeight: '70%',
       disableClose: false,
+      position: { top: '5%', left: '13%' },
     }).afterClosed().subscribe(result => {
       if (result) {
         console.log('Dados do registro:', result);

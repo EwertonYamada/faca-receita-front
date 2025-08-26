@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { LoginService } from '../login/service/login-service';
+import { AuthService } from '../login/service/auth-service';
 import { CreateAccountDto } from './model/create-account-dto';
 
 @Component({
@@ -31,7 +31,7 @@ export class AccountRegistrationComponent {
 
   constructor(
     private fb: FormBuilder,
-    private loginService: LoginService,
+    private loginService: AuthService,
     private dialogRef: MatDialogRef<AccountRegistrationComponent>
   ) {
     this.form = this.fb.group(
@@ -84,7 +84,7 @@ export class AccountRegistrationComponent {
       password: this.form.value.password,
       passwordConfirmation: this.form.value.passwordConfirmation
     } 
-    this.loginService.createUser(createAccountDTO).subscribe({
+    this.loginService.registerUser(createAccountDTO).subscribe({
       next: () => {
         this.requestSent = false;
         this.invalidPassword = false;
@@ -97,8 +97,4 @@ export class AccountRegistrationComponent {
       },
     })
   }
-
-
-  onCancel() {}
-
 }

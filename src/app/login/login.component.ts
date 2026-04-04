@@ -45,17 +45,19 @@ export class LoginComponent {
   }
 
   public onRegister(): void {
-    this.dialog.open(AccountRegistrationComponent, {
-      width: '90%',
-      height: '90%',
-      disableClose: false,
-    }).afterClosed().subscribe(result => {
-      if (result) {
-        console.log('Dados do registro:', result);
-        // Aqui você pode enviar os dados para o backend
-      } else {
-        console.log('Registro cancelado');
-      }
-    });
+    this.router.navigate(['/account-registration']);
+
+    // this.dialog.open(AccountRegistrationComponent, {
+    //   width: '90%',
+    //   height: '90%',
+    //   disableClose: false,
+    // }).afterClosed().subscribe(result => {
+    //   if (result) {
+    //     console.log('Dados do registro:', result);
+    //     // Aqui você pode enviar os dados para o backend
+    //   } else {
+    //     console.log('Registro cancelado');
+    //   }
+    // });
   }
 }

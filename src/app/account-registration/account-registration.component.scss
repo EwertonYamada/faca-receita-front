@@ -31,7 +31,7 @@
       color: white;
       padding: 10px;
       border: none;
-      border-radius: 4px;
+      border-radius: 1px;
       font-size: 16px;
       cursor: pointer;
       transition: background-color 0.3s ease;
@@ -43,14 +43,14 @@
   }
 
   .registration-title {
-    font-size: 22px;
+    font-size: 26px;
     color: $text-dark-color;
     font-family: $default-font;
-    margin-bottom: 5px;
+    margin-bottom: 24px;
   }
 
   .registration-text {
-    font-size: 13px;
+    font-size: 14px;
     font-family: $default-font;
     color: $text-dark-color;
     margin-top: -5px;
@@ -65,8 +65,18 @@
   }
 
   .password-instructions {
-    margin-top: 4px;
-    margin-bottom: 0px;
+    background-color: $background-color;
+    border-radius: 6px;
+    border: none;
+    margin: 20px 9px 7px 10px;
+    width: 97%;
+    text-align: start;
+    color: $primary-color;
+
+    .password-must-have-lable {
+      color: $primary-hover;
+      font-weight: 600;
+    }
     
     .pw-rules {
       font-size: 13px;
@@ -77,15 +87,25 @@
 
       li {
         margin: 0.25rem 0;
-        color: $text-dark-color;
         list-style: "• ";
 
         &.ok {
-          color: $secondary-color;
-          font-weight: 600;
+          color: $primary-hover;
+          font-weight: 900;
           list-style: "✓ ";
         }
       }
     }
+  }
+
+  .account-registration-card {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30vw;
+    width: 100%;
+    max-width: 720px;
+    margin: 25px;
   }
 }

@@ -1,0 +1,16 @@
+export interface CompanyForm {
+  id: number,
+  legalName: string,
+  description: string,
+  phoneNumber: string,
+  email: string,
+  tradeName: string,
+  cnpj: string,
+  stateTaxRegistration: string,
+  municipalTaxRegistration: string,
+  whatsapp: string,
+  instagram: string,
+  facebook: string,
+  website: string,
+  primaryColor: string,
+}

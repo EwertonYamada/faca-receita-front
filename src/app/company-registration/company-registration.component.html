@@ -1,0 +1,90 @@
+<div class="company-registration">
+
+  <window-title [windowTitle]="{ icon: 'account_balance', label: 'Cadastro da Empresa' }"></window-title>
+  
+  <form [formGroup]="companyForm">
+    <div class="row">
+      <div class="input-area col-md-6">
+        <label>Razão social</label>
+        <input type="text" formControlName="legalName" placeholder="Digite o razão social" />
+        <span *ngIf="companyForm.get('legalName')?.touched && companyForm.get('legalName')?.invalid" class="error-msg">
+          A razão social é obrigatória.
+        </span>
+      </div>
+      <div class="input-area col-md-6">
+        <label>Nome fantasia</label>
+        <input type="text" formControlName="tradeName" placeholder="Digite o nome fantasia da empresa" />
+      </div>
+      <div class="input-area col-md-12">
+        <label>Descrição</label>
+        <input type="text" formControlName="description" placeholder="Digite uma breve descrição sobre a empresa" />
+      </div>
+      <div class="input-area col-md-4">
+        <label>CNPJ</label>
+        <input type="text" formControlName="cnpj" placeholder="Digite o CNPJ" />
+        <span *ngIf="companyForm.get('cnpj')?.touched && companyForm.get('cnpj')?.invalid" class="error-msg">
+          O CNPJ da empresa é obrigatório.
+        </span>
+      </div>
+      <div class="input-area col-md-4">
+        <label>Inscrição estadual</label>
+        <input type="text" formControlName="stateTaxRegistration" placeholder="Digite a inscrição estadual" />
+      </div>
+      <div class="input-area col-md-4">
+        <label>Inscrição municipal</label>
+        <input type="text" formControlName="municipalTaxRegistration" placeholder="Digite a inscrição municipal" />
+      </div>
+      <div class="input-area col-md-4">
+        <label>Telefone</label>
+        <input type="text" formControlName="phoneNumber" placeholder="(00) 0000-0000" />
+        <span *ngIf="companyForm.get('name')?.touched && companyForm.get('name')?.invalid" class="error-msg">
+          O telefone é obrigatório.
+        </span>
+      </div>
+      <div class="input-area col-md-4">
+        <label>Whatsapp</label>
+        <input type="text" formControlName="whatsapp" placeholder="(00) 00000-0000" />
+      </div>
+      <div class="input-area col-md-4">
+        <label>E-mail</label>
+        <input type="text" formControlName="email" placeholder="facareceita@empresa.com.br" />
+        <span *ngIf="companyForm.get('email')?.touched && companyForm.get('email')?.invalid" class="error-msg">
+          O e-mail é obrigatório.
+        </span>
+      </div>
+      <div class="input-area col-md-4">
+        <label>Instagram</label>
+        <input type="text" formControlName="instagram" placeholder="@facareceita" />
+      </div>
+      <div class="input-area col-md-4">
+        <label>Facebook</label>
+        <input type="text" formControlName="facebook" placeholder="facebook.com/facareceita" />
+      </div>
+      <div class="input-area col-md-4">
+        <label>Site</label>
+        <input type="text" formControlName="website" placeholder="www.facareceita.com.br" />
+      </div>
+    </div>
+    <div class="row customization">
+      <div class="col-md-12">
+        <h6>Personalização</h6>
+      </div>
+      <div class="col-md-1 input-area main-color-input">
+        <input type="color" 
+               [value]="companyForm.get('primaryColor')?.value || '#00000000'"
+               (input)="onColorChange($event)"/>
+      </div>
+      <div class="col-md-3 input-area">
+        <label>Cor principal</label>
+        <input type="text" 
+               formControlName="primaryColor"
+               readonly/>
+      </div>
+    </div>
+  </form>
+  <app-finish-button 
+    confirmLabel="SALVAR"
+    (onConfirm)="save()"
+    (onCancel)="cancel()">
+  </app-finish-button>
+</div>

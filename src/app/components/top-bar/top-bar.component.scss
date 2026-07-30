@@ -14,62 +14,27 @@
     align-items: center;
   }
 
-  .top-bar-content-left {
-    display: flex;
-
-    .top-bar-logo {
-      display: flex;
-      .cookie {
-        font-weight: bold;
-        color: $secondary-color;
-      }
-
-      .faca {
-        font-size: 20px;
-        font-weight: 300;
-        color: $secondary-color;
-      }
-  
-      .receita {
-        font-size: 20px;
-        font-weight: bold;
-        color: $secondary-color;
-      }
-      :hover {
-        cursor: pointer;
-        color: $complementary-color3;
-      }
-    }
-  }
-
   .top-bar-content-center {
     display: flex;
     justify-content: center;
+
+    .input-area {
+      width: 40%;
+      margin-top: 18px;
+      input {
+        height: 28px;
+        background-color: $card-background;
+      }
+    }
 
     .center-elements {
       display: flex;
       align-items: center;
 
       .search-icon {
-        font-size: 25px !important;
-        font-weight: bold;
-        color: $secondary-color;
+        font-size: 25px;
+        color: $primary-color;
         margin-right: 10px;
-        font-size: 20px;
-        color: $secondary-color;
-        margin-right: 10px;
-      }
-
-      .input-search {
-        height: 26px;
-        background-color: $background-color;
-        border-radius: 12px;
-        border: 2px solid $secondary-color;
-        &:focus {
-          outline: none;
-          border-color: $primary-color;
-          box-shadow: 0 0 5px $primary-color;
-        }
       }
     }
   }
@@ -78,11 +43,30 @@
     display: flex;
     align-items: center;
     justify-self: end;
-    color: $secondary-color;
+    color: $primary-color;
 
     :hover {
       cursor: pointer;
-      color: $complementary-color3;
+      color: $primary-hover; 
+    }
+  }
+
+  .top-bar-content-left {
+    display: flex;
+    align-items: center;
+    justify-self: start;
+    color: $primary-color;
+
+    :hover {
+      cursor: pointer;
+      opacity: 0.9;
+  
+    }
+
+    .logo {
+      .logo-text {
+        margin-top: 18px;
+      }
     }
   }
 }

@@ -263,18 +263,6 @@ button {
 
   padding: 0;
   cursor: pointer;
-  transition: all 0.2s ease;
-
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
 }
 
 mat-icon {

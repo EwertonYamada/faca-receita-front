@@ -16,11 +16,11 @@
     align-items: center;
     font-size: 14px;
     font-weight: 600;
-    background-color: $secondary-color;
+    background-color: $primary-color;
     color: $tertiary-color;
     border: none;
     &:hover {
-      background-color: $complementary-color3;
+      background-color: $primary-hover;
       cursor: pointer;
     }
   }

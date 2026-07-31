@@ -8,6 +8,7 @@ import { RecipeService } from './service/recipe-service';
 import { OptionList } from '../helpers/option-list/option-list';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { WindowTitleComponent } from '../components/window-title/window-title.component';
 
 @Component({
   selector: 'app-register-recipe',
@@ -18,6 +19,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     ReactiveFormsModule,
     FinishButtonComponent,
     CommonModule,
+    WindowTitleComponent,
   ],
   templateUrl: './register-recipe.component.html',
   styleUrl: './register-recipe.component.scss',

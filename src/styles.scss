@@ -1,79 +1,73 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
-$primary-color: #FF924A; // Cor Primária (Laranja)
-$secondary-color: #4B715F; // Cor Secundária (Verde)
-$tertiary-color: #F3E6C0; // Cor Terciária (Bege)
-$quaternary-color: #5f4909; // Cor Quaternária (Marrom)
-$complementary-color: #D3D3D3; // Cor Complementar (Cinza Claro)
-$complementary-color2: #ffa76d; // Cor Complementar (Cinza Claro)
-$complementary-color3: #628876; // Cor Complementar (Cinza Claro)
-$complementary-color4: #e2e2e2; // Cor Complementar (Cinza Claro)
 
-$background-color: #f0ebdd; // Plano de Fundo (Bege)
-$sidebar-color: #D3D3D3; // Menu Lateral (Cinza Claro)
-$topbar-color: #D3D3D3; // Menu Superior (Cinza Claro)
-$text-dark-color: #333333; // Texto Principal (Cinza Escuro)
-$text-light-color: #666666; // Texto Secundário (Cinza Claro)
-$default-font: 'Poppins', sans-serif; // Fonte Padrão
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+$primary-color: #A67C52;
+$primary-hover: #8C6239;
+
+$secondary-color: #d6c4a8;
+$tertiary-color: #fffaf3;
+$quaternary-color: #4b3a2f;
+
+$background-color: #f5efe6;
+$card-background: #ffffff;
+
+$complementary-color: #f0e6d6;
+$complementary-color2: #e8dcc8;
+$complementary-color3: #c8b79f;
+$complementary-color4: #faf6ef;
+
+$text-dark-color: #4b3a2f;
+$text-light-color: #7a6a5a;
+
+$default-font: 'Poppins', sans-serif;
 
 * {
-  font-family: 'Poppins', sans-serif;
-}
-
-mat-icon {
-  font-family: 'Material Icons';
-  font-size: 26px;
-  margin: 2px;
-}
-
-.mat-icon-button {
-  color: $secondary-color;
-
-  &:hover {
-    color: $complementary-color3;
-    cursor: pointer;
-  }
+  font-family: $default-font;
 }
 
 html,
 body {
   height: 100%;
   margin: 0;
+  background: $background-color;
 }
 
 .app-container {
   height: 100%;
 }
 
+.form-container {
+  background: $card-background;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
 .input-area {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: start;
-  margin: 0px;
+  margin-bottom: 8px;
 
   label {
-    font-family: 'Poppins', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     color: $text-dark-color;
-    font-weight: 500;
-    margin-bottom: -5px;
+    margin-bottom: 4px;
   }
 
   input {
     width: 100%;
-    height: 25px;
-    padding: 8px;
-    border-radius: 4px;
-    border: 2px solid $secondary-color;
-    background-color: $complementary-color4;
-    font-size: 16px;
-    margin-right: 8px;
+    height: 40px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1.5px solid $secondary-color;
+    background-color: $tertiary-color;
+    font-size: 15px;
+    transition: all 0.2s ease;
 
     &:focus {
       outline: none;
       border-color: $primary-color;
-      box-shadow: 0 0 5px $primary-color;
+      box-shadow: 0 0 0 3px rgba(166, 124, 82, 0.2);
     }
   }
 }
@@ -81,33 +75,28 @@ body {
 .input-text-area {
   display: flex;
   flex-direction: column;
-  align-items: start;
   justify-content: start;
-  margin: 0px;
 
   label {
-    font-family: 'Poppins', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     color: $text-dark-color;
-    font-weight: 500;
-    margin-bottom: -5px;
+    margin-bottom: 6px;
+    text-align: start;
   }
 
   textarea {
     width: 100%;
-    min-height: 64px;
-    padding: 0px 8px 0px 8px;
-    border-radius: 4px;
-    border: 2px solid $secondary-color;
-    background-color: $complementary-color4;
-    font-size: 16px;
-    margin-right: 8px;
-    line-height: 1.2;
+    min-height: 70px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1.5px solid $secondary-color;
+    background-color: $tertiary-color;
+    font-size: 15px;
 
     &:focus {
       outline: none;
       border-color: $primary-color;
-      box-shadow: 0 0 5px $primary-color;
+      box-shadow: 0 0 0 3px rgba(166, 124, 82, 0.2);
     }
   }
 }
@@ -115,154 +104,188 @@ body {
 .select-area {
   display: flex;
   flex-direction: column;
-  align-items: start;
-  justify-content: start;
-  margin: 0px;
 
   label {
-    font-family: 'Poppins', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     color: $text-dark-color;
-    font-weight: 500;
-    margin-bottom: -5px;
+    margin-bottom: 6px;
   }
 
   select {
     width: 100%;
-    height: 25px;
-    border-radius: 4px;
-    border: 2px solid $secondary-color;
-    background-color: $complementary-color4;
-    font-size: 15px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1.5px solid $secondary-color;
+    background-color: $tertiary-color;
+    padding: 6px;
 
     &:focus {
       outline: none;
       border-color: $primary-color;
-      box-shadow: 0 0 5px $primary-color;
+      box-shadow: 0 0 0 3px rgba(166, 124, 82, 0.2);
     }
   }
 }
 
-.button-area {
-  align-content: end;
-  display: flex;
-  height: fit-content;
-  padding-top: 24px;
 
-  button {
-    padding: 0px;
-    border: none;
-    display: flex;
+button {
+  height: 44px;
+  border: none;
+  border-radius: 4px;
+  background: $primary-color;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  padding: 0 20px;
+  transition: all 0.2s ease;
 
-    &:focus {
-      outline: none;
-      border-color: $primary-color;
-      box-shadow: 0 0 5px $primary-color;
-    }
+  &:hover {
+    background: $primary-hover;
+    transform: translateY(-1px);
+    cursor: pointer;
   }
 
-  mat-icon {
-    display: flex;
-    align-items: end;
-    margin: 0px;
-    color: $secondary-color;
-    width: 100%;
-    height: 100%;
-
-    &:hover {
-      cursor: pointer;
-      color: $complementary-color3;
-    }
+  &:focus {
+    outline: none;
   }
+}
+
+:root {
+  --mat-table-header-container-height: 40px;
+  --mat-table-row-item-container-height: 40px;
 }
 
 .table-area {
   width: 100%;
-  margin: 20px 0 5px 0;
-  padding: 0;
 
   mat-table {
     width: 100%;
-    max-height: 200px;
-    border-collapse: collapse;
     border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .mat-mdc-table {
+    width: 100%;
     padding: 0px;
-    overflow-y: auto;
-    table-layout: fixed;
-    display: table;
-    --mat-table-row-item-outline-width: 0px;
   }
 
-  .mat-header-row,
-  .mat-row {
-    height: 22px !important;
-    line-height: 22px !important;
-    display: table-row;
+  .mat-mdc-header-row {
+    background-color: $primary-color;
+    color: white;
+    display: flex;
     justify-content: space-between;
-    border: none !important;
+    align-items: center;
   }
 
-  .mat-header-row {
-    background-color: $secondary-color;
-    color: $tertiary-color;
-  }
-
-  .mat-row:nth-child(even) {
+  .mat-mdc-row:nth-child(even) {
     background-color: $complementary-color4;
   }
 
-  .mat-row:nth-child(odd) {
-    background-color: lighten($complementary-color4, 7%);
+  .mat-mdc-row:nth-child(odd) {
+    background-color: $complementary-color;
   }
 
-  .mat-cell,
-  .mat-header-cell {
-    padding: 0 4px !important;
-    font-size: 12px;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    text-align: left;
+  .mat-mdc-row:hover {
+    background: $complementary-color2;
   }
 
-  .mat-column-actions {
-    width: 150px;
-    text-align: center;
+  .mat-mdc-cell,
+  .mat-mdc-header-cell {
+    padding: 0 12px;
+    font-size: 13px;
+    vertical-align: middle;
+    border: none
+  }
+
+  .mat-mdc-header-cell {
+    font-weight: 600;
   }
 
   .list-action-button {
-    color: $secondary-color;
-    font-size: 18px;
+    color: $primary-color;
 
     &:hover {
-      color: $complementary-color3;
+      color: $primary-hover;
       cursor: pointer;
     }
   }
+}
 
-  .table-input-area {
+.logo {
   display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: start;
-  margin: 0px;
+  align-items: center;
+  justify-content: center;
 
-    input {
-      width: 100%;
-      height: 20px;
-      padding: 8px;
-      border-radius: 4px;
-      border: 1px solid $secondary-color;
-      background-color: white;
-      font-size: 16px;
-      margin-right: 8px;
+  .cookie {
+    font-size: 48px;
+    color: $primary-color;
+    width: 48px;
+    height: 48px;
 
-      &:focus {
-        outline: none;
-        border-color: $primary-color;
-        box-shadow: 0 0 5px $primary-color;
-      }
-    }
+  }
+
+  .logo-text {
+    display: flex;
+    align-items: baseline;
+
+  }
+
+  .faca {
+    font-size: 32px;
+    font-weight: 400;
+    color: $text-light-color;
+  }
+
+  .receita {
+    font-size: 32px;
+    font-weight: 700;
+    color: $primary-color;
   }
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.button-area {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 8px;
+}
+
+.button-area button {
+  height: 40px;
+  width: 40px;
+  border-radius: 4px;
+
+  border: none;
+  background: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  cursor: pointer;
+}
+
+mat-icon {
+  margin: 0px 5px;
+  font-family: 'Material Icons' !important;
+}
+
+.button-area mat-icon {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: -webkit-xxx-large;
+  line-height: 1;
+  margin: 0;
+
+  color: $primary-color;
+
+
+  &:hover {
+    color: $primary-hover;
+  }
+}

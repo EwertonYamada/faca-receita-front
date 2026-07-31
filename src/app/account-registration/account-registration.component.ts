@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,11 +20,17 @@ import { PasswordRulesComponent } from './password-rules/password-rules.componen
   styleUrl: './account-registration.component.scss'
 })
 export class AccountRegistrationComponent {
-  @ViewChild(PasswordRulesComponent) rules!: PasswordRulesComponent
 
   requestSent: boolean = false;
   form: FormGroup;
   isValidPass: boolean = false;
+  rules = {
+    upper: false,
+    lower: false,
+    number: false,
+    special: false,
+    length: false
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -86,9 +92,14 @@ export class AccountRegistrationComponent {
   }
 
   onPasswordInput(event: Event) {
-    const value = (event.target as HTMLInputElement).value;      
-    if (this.rules) {
-      this.isValidPass = this.rules.checkPasswordRules(value);
-    }
+    const password = (event.target as HTMLInputElement).value;
+
+    this.rules.upper = /[A-Z]/.test(password);
+    this.rules.lower = /[a-z]/.test(password);
+    this.rules.number = /\d/.test(password);
+    this.rules.special = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    this.rules.length = password.length >= 8;
+
+    this.isValidPass = Object.values(this.rules).every(Boolean);
   }
 }

@@ -8,6 +8,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { AccountRegistrationComponent } from './account-registration/account-registration.component';
 import { ResetPasswordComponent } from './account-registration/reset-password/reset-password.component';
+import { CompanyRegistrationComponent } from './company-registration/company-registration.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent },
@@ -23,6 +24,7 @@ export const routes: Routes = [
         { path: 'recipes', component: RecipeListComponent },
         { path: 'simulate-recipe', component: SimulateRecipeComponent },
         { path: 'reports', component: ReportsComponent },
+        { path: 'company', component: CompanyRegistrationComponent },
       ]
     },
     { path: '**', redirectTo: '/homepage' }

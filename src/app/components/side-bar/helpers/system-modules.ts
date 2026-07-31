@@ -6,8 +6,9 @@ export interface SystemModule {
 }
 
 export const SYSTEM_MODULES: SystemModule[] = [
-  { key: 'RECIPE', label: 'Receitas', icon: 'playlist_add', route: '/recipes' },
-  { key: 'EXECUTE_RECIPE', label: 'Executar Receita', icon: 'playlist_play', route: '/execute-recipe' },
-  { key: 'SIMULATE_RECIPE', label: 'Simular Receita', icon: 'playlist_add_check', route: '/simulate-recipe' },
-  { key: 'REPORTS', label: 'Relatórios', icon: 'bar_chart_4_bars', route: '/reports' }
-];
+  { key: 'RECIPE', label: 'Receitas', icon: 'restaurant_menu', route: '/recipes' },
+  { key: 'EXECUTE_RECIPE', label: 'Executar Receita', icon: 'play_circle', route: '/execute-recipe' },
+  { key: 'SIMULATE_RECIPE', label: 'Simular Receita', icon: 'science', route: '/simulate-recipe' },
+  { key: 'REPORTS', label: 'Relatórios', icon: 'bar_chart', route: '/reports' },
+  { key: 'COMPANY', label: 'Empresa', icon: 'account_balance', route: '/company' }
+]

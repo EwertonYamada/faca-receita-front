@@ -17,18 +17,18 @@ app-top-bar {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: $topbar-color;
+  background-color: $complementary-color;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 app-side-bar {
-  width: $sidebar-width;
+  width: $complementary-color;
   position: fixed;
   top: $topbar-height;
   bottom: 0;
   left: 0;
   z-index: 999;
-  background-color: $sidebar-color;
+  background-color: $complementary-color;
 }
 
 .main-content {
@@ -38,7 +38,7 @@ app-side-bar {
   width: calc(100% - #{$sidebar-width});
   height: calc(100% - #{$topbar-height});
   overflow-y: auto;
-  padding: 30px 20px 20px 20px;
+  padding: 30px;
   background-color: $background-color;
   box-sizing: border-box;
 }

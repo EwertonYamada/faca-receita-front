@@ -5,23 +5,11 @@
         <label>Receita</label>
         <input type="text" formControlName="recipeName" placeholder="Busque uma receita..." (ngModelChange)="searchRecipes()"/>
       </div>
-      <div class="input-area col-md-4">
-        <label>Período</label>
-        <div style="display: flex;">
-
-          <div class="between-input-area">
-
-            <input class="align-input" type="date" formControlName="recipeDateStart" placeholder="Inicial" (ngModelChange)="searchRecipes()"/>
-          </div>
-          <div class="between-input-area">
-
-            <input class="align-input" type="date" formControlName="recipeDateEnd" placeholder="Final" (ngModelChange)="searchRecipes()"/>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-2"></div>
+      <div class="col-md-7"></div>
       <div class="col-md-1 button-area">
-        <mat-icon (click)="newRecipe()">add_box</mat-icon>
+        <button mat-icon-button (click)="newRecipe()">
+          <mat-icon>add_box</mat-icon>
+        </button>
       </div>
     </div>
   </form>

@@ -20,14 +20,18 @@ import { ForgotPasswordDto } from '../model/forgot-password-dto';
   styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent implements OnInit {
-
-  @ViewChild(PasswordRulesComponent) rules!: PasswordRulesComponent;
-
   form: FormGroup;
   email: string | null = null;
   token: string | null = null;
   isValidPass: boolean = false;
   requestSent: boolean = false;
+  rules = {
+    upper: false,
+    lower: false,
+    number: false,
+    special: false,
+    length: false
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -107,7 +111,13 @@ export class ResetPasswordComponent implements OnInit {
   public onPasswordInput(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
     if (this.rules) {
-      this.isValidPass = this.rules.checkPasswordRules(value);
+      this.rules.upper = /[A-Z]/.test(value);
+      this.rules.lower = /[a-z]/.test(value);
+      this.rules.number = /\d/.test(value);
+      this.rules.special = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+      this.rules.length = value.length >= 8;
+
+      this.isValidPass = Object.values(this.rules).every(Boolean);
     }
   }
 }

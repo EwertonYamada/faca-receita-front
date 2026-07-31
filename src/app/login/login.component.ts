@@ -7,6 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AccountRegistrationComponent } from '../account-registration/account-registration.component';
 import { AuthService } from './service/auth-service';
+import { CommonModule } from '@angular/common';
+import { ForgotPasswordComponent } from '../account-registration/forgot-password/forgot-password.component';
 
 @Component({
   selector: 'app-login',
@@ -16,12 +18,15 @@ import { AuthService } from './service/auth-service';
             MatDialogModule,
             MatFormFieldModule,
             MatInputModule,
+            CommonModule,
           ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   loginForm: FormGroup<any>;
+  loginError: boolean = false;
+  loginMessageError!: string
 
   constructor(
     private fb: FormBuilder,
@@ -37,9 +42,8 @@ export class LoginComponent {
 
   public onLogin(): void {
     if (!this.loginForm.valid) return;
-
     const { email, password } = this.loginForm.value;
-
+    this.loginError = false;
     this.loginService.login(email, password).subscribe({
       next: (response) => {
         if (response && response.token) {
@@ -48,12 +52,14 @@ export class LoginComponent {
         }
       },
       error: (error) => {
+        this.loginError = true;
+        console.log(error);
+        
+        this.loginMessageError = error.error || 'Error during login. Please try again.';
         console.error('Erro no login:', error);
-        alert('Falha no login. Verifique suas credenciais e tente novamente.');
       }
     });
   }
-
 
   public onRegister(): void {
     this.dialog.open(AccountRegistrationComponent, {
@@ -61,13 +67,21 @@ export class LoginComponent {
       minHeight: '70%',
       disableClose: false,
       position: { top: '5%', left: '13%' },
-    }).afterClosed().subscribe(result => {
-      if (result) {
-        console.log('Dados do registro:', result);
-        // Aqui você pode enviar os dados para o backend
-      } else {
-        console.log('Registro cancelado');
-      }
-    });
+    })
   }
+
+  public fotgotPassword(): void {
+     this.dialog.open(ForgotPasswordComponent, {
+      minWidth: '90%',
+      minHeight: '70%',
+      disableClose: false,
+      position: { top: '5%', left: '13%' },
+      data: {
+        email: this.loginForm.get('email')?.value || '',
+        showPasswordFields: false
+      }
+    })
+
+  }
+
 }

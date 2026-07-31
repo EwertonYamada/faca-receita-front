@@ -7,10 +7,12 @@ import { SimulateRecipeComponent } from './simulate-recipe/simulate-recipe.compo
 import { ReportsComponent } from './reports/reports.component';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { AccountRegistrationComponent } from './account-registration/account-registration.component';
+import { ResetPasswordComponent } from './account-registration/reset-password/reset-password.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent },
     { path: 'registration', component: AccountRegistrationComponent },
+    { path: 'reset-password', component: ResetPasswordComponent },
     {
       path: '',
       component: LayoutComponent,

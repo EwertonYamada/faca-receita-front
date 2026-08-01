@@ -5,6 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../login/service/auth-service';
 import { CreateAccountDto } from './model/create-account-dto';
+import { PasswordRulesComponent } from './password-rules/password-rules.component';
 
 @Component({
   selector: 'app-account-registration',
@@ -13,14 +14,16 @@ import { CreateAccountDto } from './model/create-account-dto';
     ReactiveFormsModule,
     CommonModule,
     MatIconModule,
+    PasswordRulesComponent,
   ],
   templateUrl: './account-registration.component.html',
   styleUrl: './account-registration.component.scss'
 })
 export class AccountRegistrationComponent {
+
   requestSent: boolean = false;
-  invalidPassword: boolean = false;
   form: FormGroup;
+  isValidPass: boolean = false;
   rules = {
     upper: false,
     lower: false,
@@ -49,29 +52,20 @@ export class AccountRegistrationComponent {
     )
   }
 
-  ngOnInit(): void {
-    this.form.get('password')?.valueChanges.subscribe(value => {
-      const password = value || '';      
-      this.rules.upper = /[A-Z]/.test(password);
-      this.rules.lower = /[a-z]/.test(password);
-      this.rules.number = /\d/.test(password);
-      this.rules.special = /[^A-Za-z0-9]/.test(password);
-      this.rules.length = /.{8,}/.test(password);
-    });
-  }
+  ngOnInit(): void { }
 
-  passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
+  private passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
     const password = group.get('password')?.value;
     const confirm = group.get('passwordConfirmation')?.value;
     return password === confirm ? null : { passwordMismatch: true };
   }
 
-  allFieldsFilled(group: AbstractControl): ValidationErrors | null {
+  private allFieldsFilled(group: AbstractControl): ValidationErrors | null {
     const hasEmpty = Object.values(group.value).some(v => v === null || v === '');
     return hasEmpty ? { emptyFields: true } : null;
   }
 
-  createAccount() {
+  public createAccount(): void {
     this.requestSent = true;
     if (!this.form.valid) {
       return
@@ -87,7 +81,6 @@ export class AccountRegistrationComponent {
     this.loginService.registerUser(createAccountDTO).subscribe({
       next: () => {
         this.requestSent = false;
-        this.invalidPassword = false;
       },
       error: (error) => {
         console.error('Error creating account:', error);
@@ -96,5 +89,17 @@ export class AccountRegistrationComponent {
         this.dialogRef.close(this.form.value);
       },
     })
+  }
+
+  onPasswordInput(event: Event) {
+    const password = (event.target as HTMLInputElement).value;
+
+    this.rules.upper = /[A-Z]/.test(password);
+    this.rules.lower = /[a-z]/.test(password);
+    this.rules.number = /\d/.test(password);
+    this.rules.special = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    this.rules.length = password.length >= 8;
+
+    this.isValidPass = Object.values(this.rules).every(Boolean);
   }
 }

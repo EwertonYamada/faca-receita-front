@@ -6,6 +6,9 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AccountRegistrationComponent } from '../account-registration/account-registration.component';
+import { AuthService } from './service/auth-service';
+import { CommonModule } from '@angular/common';
+import { ForgotPasswordComponent } from '../account-registration/forgot-password/forgot-password.component';
 import { NotificationService } from '../services/notification.service';
 
 @Component({
@@ -16,18 +19,22 @@ import { NotificationService } from '../services/notification.service';
             MatDialogModule,
             MatFormFieldModule,
             MatInputModule,
+            CommonModule,
           ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   loginForm: FormGroup<any>;
+  loginError: boolean = false;
+  loginMessageError!: string
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private dialog: MatDialog,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private loginService: AuthService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -36,30 +43,47 @@ export class LoginComponent {
   }
 
   public onLogin(): void {
-    this.router.navigate(['/homepage']);
-
-    if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-    } else {
-      this.notificationService.info('teste')
-      console.log('Formulário inválido!');
+    if (!this.loginForm.valid) {
+      return this.notificationService.info('Login ou senha inválidos')
     }
+    const { email, password } = this.loginForm.value;
+    this.loginError = false;
+    this.loginService.login(email, password).subscribe({
+      next: (response) => {
+        if (response && response.token) {
+          localStorage.setItem('authToken', response.token);
+          this.router.navigate(['/homepage']);
+        }
+      },
+      error: (error) => {
+        this.loginError = true;
+        console.log(error);
+        
+        this.loginMessageError = error.error || 'Error during login. Please try again.';
+        console.error('Erro no login:', error);
+      }
+    });
   }
 
   public onRegister(): void {
-    this.router.navigate(['/account-registration']);
+    this.dialog.open(AccountRegistrationComponent, {
+      minWidth: '90%',
+      minHeight: '70%',
+      disableClose: false,
+      position: { top: '5%', left: '13%' },
+    })
+  }
 
-    // this.dialog.open(AccountRegistrationComponent, {
-    //   width: '90%',
-    //   height: '90%',
-    //   disableClose: false,
-    // }).afterClosed().subscribe(result => {
-    //   if (result) {
-    //     console.log('Dados do registro:', result);
-    //     // Aqui você pode enviar os dados para o backend
-    //   } else {
-    //     console.log('Registro cancelado');
-    //   }
-    // });
+  public fotgotPassword(): void {
+     this.dialog.open(ForgotPasswordComponent, {
+      minWidth: '90%',
+      minHeight: '70%',
+      disableClose: false,
+      position: { top: '5%', left: '13%' },
+      data: {
+        email: this.loginForm.get('email')?.value || '',
+        showPasswordFields: false
+      }
+    })
   }
 }

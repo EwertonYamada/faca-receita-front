@@ -57,9 +57,9 @@ export class LoginComponent {
       },
       error: (error) => {
         this.loginError = true;
-        console.log(error);
+        console.log(error.error);
         
-        this.loginMessageError = error.error || 'Error during login. Please try again.';
+        this.loginMessageError = error.error.message || 'Error during login. Please try again.';
         console.error('Erro no login:', error);
       }
     });

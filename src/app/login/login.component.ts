@@ -9,6 +9,7 @@ import { AccountRegistrationComponent } from '../account-registration/account-re
 import { AuthService } from './service/auth-service';
 import { CommonModule } from '@angular/common';
 import { ForgotPasswordComponent } from '../account-registration/forgot-password/forgot-password.component';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -32,16 +33,19 @@ export class LoginComponent {
     private fb: FormBuilder,
     private router: Router,
     private dialog: MatDialog,
+    private notificationService: NotificationService,
     private loginService: AuthService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
 
   public onLogin(): void {
-    if (!this.loginForm.valid) return;
+    if (!this.loginForm.valid) {
+      return this.notificationService.info('Login ou senha inválidos')
+    }
     const { email, password } = this.loginForm.value;
     this.loginError = false;
     this.loginService.login(email, password).subscribe({
@@ -81,7 +85,5 @@ export class LoginComponent {
         showPasswordFields: false
       }
     })
-
   }
-
 }

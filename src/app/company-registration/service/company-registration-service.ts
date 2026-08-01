@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../helpers/environment/environment';
 import { CompanyForm } from '../models/company-form';
+import { CompanyResponse } from '../models/company-response';
 
 @Injectable({ providedIn: 'root' })
 export class CompanyRegistrationService {
@@ -10,7 +11,15 @@ export class CompanyRegistrationService {
 
   constructor(private http: HttpClient) { }
 
-  public save(company: CompanyForm): Observable<any> {
-    return this.http.post(this.apiUrl, company)
+  public create(company: CompanyForm): Observable<CompanyResponse> {
+    return this.http.post<CompanyResponse>(this.apiUrl, company)
+  }
+
+  public update(id: number, company: CompanyForm): Observable<CompanyResponse> {
+    return this.http.put<CompanyResponse>(`${this.apiUrl}/${id}`, company)
+  }
+
+  public findCompany(): Observable<CompanyResponse> {
+    return this.http.get<CompanyResponse>(this.apiUrl)
   }
 }

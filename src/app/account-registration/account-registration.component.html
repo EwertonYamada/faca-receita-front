@@ -37,14 +37,7 @@
           <input type="password" id="passwordConfirmation" formControlName="passwordConfirmation" required />
         </div>
         <div class="password-instructions col-md-12">
-          <p class="password-must-have-lable">A senha deve conter:</p>
-          <ul class="pw-rules">
-            <li [class.ok]="rules.upper">Pelo menos 1 letra maiúscula (A–Z).</li>
-            <li [class.ok]="rules.lower">Pelo menos 1 letra minúscula (a–z).</li>
-            <li [class.ok]="rules.number">Pelo menos 1 número (0–9).</li>
-            <li [class.ok]="rules.special">Pelo menos 1 caractere especial.</li>
-            <li [class.ok]="rules.length">Mínimo de 8 caracteres.</li>
-          </ul>
+          <app-password-rules [rules]="rules"></app-password-rules>
         </div>
     
         <div class="row col-md-12 registration-btn-container">

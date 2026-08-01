@@ -6,6 +6,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AccountRegistrationComponent } from '../account-registration/account-registration.component';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -25,11 +26,12 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private notificationService: NotificationService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
 
@@ -38,8 +40,8 @@ export class LoginComponent {
 
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
-      console.log('Login com email:', email, 'e senha:', password);
     } else {
+      this.notificationService.info('teste')
       console.log('Formulário inválido!');
     }
   }

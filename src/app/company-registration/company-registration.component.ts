@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FinishButtonComponent } from '../components/finish-button/finish-button.component';
 import { CompanyRegistrationService } from './service/company-registration-service';
 import { Router } from '@angular/router';
-import { CompanyResponse } from './models/company-response';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-company-registration',
@@ -24,6 +24,7 @@ import { CompanyResponse } from './models/company-response';
 export class CompanyRegistrationComponent {
   private formBuilder = inject(FormBuilder)
   private companyRegistrationService = inject(CompanyRegistrationService)
+  private notificationService = inject(NotificationService)
   public companyForm!: FormGroup
 
   constructor(
@@ -68,7 +69,7 @@ export class CompanyRegistrationComponent {
 
   public save(): void {
     if (this.companyForm.invalid) {
-      return
+      return this.notificationService.error('Existem ados inválidos ou não preenchidos')
     }
     try {
       if (this.companyForm.value.id) {

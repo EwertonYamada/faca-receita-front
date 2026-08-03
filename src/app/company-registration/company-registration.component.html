@@ -7,9 +7,6 @@
       <div class="input-area col-md-6">
         <label>Razão social</label>
         <input type="text" formControlName="legalName" placeholder="Digite o razão social" />
-        <span *ngIf="companyForm.get('legalName')?.touched && companyForm.get('legalName')?.invalid" class="error-msg">
-          A razão social é obrigatória.
-        </span>
       </div>
       <div class="input-area col-md-6">
         <label>Nome fantasia</label>
@@ -22,9 +19,6 @@
       <div class="input-area col-md-4">
         <label>CNPJ</label>
         <input type="text" formControlName="cnpj" placeholder="Digite o CNPJ" />
-        <span *ngIf="companyForm.get('cnpj')?.touched && companyForm.get('cnpj')?.invalid" class="error-msg">
-          O CNPJ da empresa é obrigatório.
-        </span>
       </div>
       <div class="input-area col-md-4">
         <label>Inscrição estadual</label>
@@ -37,9 +31,6 @@
       <div class="input-area col-md-4">
         <label>Telefone</label>
         <input type="text" formControlName="phoneNumber" placeholder="(00) 0000-0000" />
-        <span *ngIf="companyForm.get('name')?.touched && companyForm.get('name')?.invalid" class="error-msg">
-          O telefone é obrigatório.
-        </span>
       </div>
       <div class="input-area col-md-4">
         <label>Whatsapp</label>
@@ -48,9 +39,6 @@
       <div class="input-area col-md-4">
         <label>E-mail</label>
         <input type="text" formControlName="email" placeholder="facareceita@empresa.com.br" />
-        <span *ngIf="companyForm.get('email')?.touched && companyForm.get('email')?.invalid" class="error-msg">
-          O e-mail é obrigatório.
-        </span>
       </div>
       <div class="input-area col-md-4">
         <label>Instagram</label>

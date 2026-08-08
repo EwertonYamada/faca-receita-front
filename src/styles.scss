@@ -157,24 +157,16 @@ button {
 
 .table-area {
   width: 100%;
+  padding: 14px;
 
-  mat-table {
+  .mat-mdc-table {
     width: 100%;
     border-radius: 4px;
     overflow: hidden;
   }
 
-  .mat-mdc-table {
-    width: 100%;
-    padding: 0px;
-  }
-
   .mat-mdc-header-row {
     background-color: $primary-color;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
 
   .mat-mdc-row:nth-child(even) {
@@ -186,19 +178,19 @@ button {
   }
 
   .mat-mdc-row:hover {
-    background: $complementary-color2;
-  }
-
-  .mat-mdc-cell,
-  .mat-mdc-header-cell {
-    padding: 0 12px;
-    font-size: 13px;
-    vertical-align: middle;
-    border: none
+    background-color: $complementary-color2;
   }
 
   .mat-mdc-header-cell {
     font-weight: 600;
+    color: white;
+  }
+
+  .mat-mdc-header-cell,
+  .mat-mdc-cell {
+    padding: 0 12px;
+    font-size: 13px;
+    border: none;
   }
 
   .list-action-button {

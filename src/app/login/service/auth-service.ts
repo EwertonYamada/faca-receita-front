@@ -3,6 +3,7 @@ import { environment } from '../../helpers/environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CreateAccountDto as RegisterUserDTO } from '../../account-registration/model/create-account-dto';
+import { ForgotPasswordDto } from '../../account-registration/model/forgot-password-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,12 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, { email, password });
   }
 
-  public forgotPassword(email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/forgot-password`, { email });
+  public sendPasswordResetEmail(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/send-reset-email`, email, {responseType: 'text'});
+  }
+
+  public createNewPassword(forgotPasswordDto: ForgotPasswordDto): Observable<any> {
+    return this.http.post(`${this.apiUrl}/create-new-password`, forgotPasswordDto);
   }
 
   public logout(): Observable<any> {

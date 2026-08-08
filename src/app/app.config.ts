@@ -6,16 +6,15 @@ import { importProvidersFrom } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatTableModule } from '@angular/material/table';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     importProvidersFrom(MatIconModule), 
-    provideAnimationsAsync(),
     MatTableModule,
-    provideHttpClient(),
-    provideAnimationsAsync()
+    provideHttpClient(withInterceptors([authInterceptor])), provideAnimationsAsync()
   ]
 }
